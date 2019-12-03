@@ -1,0 +1,34 @@
+html {
+    display: table;
+    margin: auto;
+    height: 100%;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* canvas styling */
+#canvas{
+    display: table;
+}
+
+.pixel-row{
+    display: table-row;
+}
+
+.pixel{
+    display:table-cell;
+    background-color: grey;
+    border: 1px solid white;
+    height:5px;
+    width:5px;
+}
+/*  */
+
+/* pallete styling */
+#pallete{
+    display: table;
+}
+/*  */

@@ -1,0 +1,2 @@
+1. Create canvas - 2x2 div block that changes color to red once clicked. v
+2. Create pallete - 2 colors that changes you "brush" x

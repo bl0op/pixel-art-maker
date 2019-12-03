@@ -1,0 +1,1 @@
+1 - When canvas is too big then it is resizing :(
