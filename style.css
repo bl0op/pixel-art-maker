@@ -9,9 +9,14 @@ body {
     vertical-align: middle;
 }
 
+#content {
+    background-color: grey;
+}
+
 /* canvas styling */
 #canvas{
     display: table;
+    padding: 20px;
 }
 
 .pixel-row{
@@ -20,15 +25,30 @@ body {
 
 .pixel{
     display:table-cell;
-    background-color: grey;
-    border: 1px solid white;
-    height:5px;
-    width:5px;
+    border-left: 1px grey solid;
+    border-bottom: 1px grey solid;
+    background-color: white;
+    height:10px;
+    width:10px;
 }
 /*  */
 
 /* pallete styling */
 #pallete{
     display: table;
+    border-spacing: 5px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.color-row{
+    display: table-row;
+}
+.color-cell{
+    display: table-cell;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%; 
+    background-color: white;
 }
 /*  */
