@@ -2,6 +2,19 @@
 ///@date: 03.12.19
 ///@brief: script for pixel-art maker tool
 
+
+mouseIsPressed = false
+
+document.body.onmousedown = function(){
+    mouseIsPressed = true;
+}
+document.body.onmouseup = function(){
+    mouseIsPressed = false;
+}
+document.body.onmouseleave = function(){
+    mouseIsPressed = false;
+}
+
 //this function variable is using to switch tool: pen, erase and other.
 var toolFunction = function (event) {
 }
@@ -43,7 +56,8 @@ function createCanvas(width, height){
                 pixel.style.borderBottom = '0px'
             }
 
-            pixel.addEventListener('click', toolFunction);
+            //pixel.addEventListener('click', toolFunction);
+            pixel.addEventListener('mouseenter', toolFunction);
             row.appendChild(pixel);
         }
         canvas.appendChild(row);
@@ -79,7 +93,9 @@ function createPallete(){
 
 //change to pen
 toolFunction = function(event){
-    pen(currentColor, event.target);
+    if(mouseIsPressed){
+        pen(currentColor, event.target);
+    }
 }
 
 
