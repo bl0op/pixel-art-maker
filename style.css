@@ -10,8 +10,26 @@ body {
 }
 
 #content {
+    display: table;
     background-color: grey;
 }
+
+/* toolbar styling */
+#toolbar{
+    display: table;
+    border-spacing: 5px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+.toolbar-cell{
+    display: table-cell;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%; 
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+/*  */
 
 /* canvas styling */
 #canvas{
