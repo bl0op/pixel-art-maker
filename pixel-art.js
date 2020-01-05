@@ -127,21 +127,14 @@ function createPallete(){
     }
     color_row = document.createElement("div");
     color_row.className = "color-row";
-    /*for(let color_num = 0; color_num < colors_count; color_num++){
+    var colors = ["black", "white", "red", "green", "blue", "purple", "brown", "orange" ];
+    for(let color_num = 0; color_num < colors.length; color_num++){
         color_cell = document.createElement("div");        
-        color_cell.className = "color-cell";
-        color_row.appendChild(color_cell);
-        }*/
-        color_cell = document.createElement("div");        
-        color_cell.style.backgroundColor = "white";
+        color_cell.style.backgroundColor = colors[color_num];
         color_cell.className = "color-cell";
         color_cell.addEventListener("click", function(event){ currentColor = event.target.style.backgroundColor;});
         color_row.appendChild(color_cell);
-        color_cell = document.createElement("div");        
-        color_cell.style.backgroundColor = "red";
-        color_cell.className = "color-cell";
-        color_cell.addEventListener("click", function(event){ currentColor = event.target.style.backgroundColor;});
-        color_row.appendChild(color_cell);
+    }
     pallete.appendChild(color_row);
 }
 
