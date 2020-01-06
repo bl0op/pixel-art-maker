@@ -93,21 +93,6 @@ function createCanvas(width, height){
         for(let column_num = 0; column_num < width; column_num++){
             pixel = document.createElement("div");
             pixel.className = "pixel";
-            //if it is left ramp pixel don't show left border
-            if(column_num == 0){
-                pixel.style.borderLeft = '0px';
-            }
-            //and so on...
-            if(column_num == width-1){
-                pixel.style.borderRight = '0px'
-            }
-            if(row_num == 0){
-                pixel.style.borderTop = '0px'
-            }
-            if(row_num == height-1){
-                pixel.style.borderBottom = '0px'
-            }
-
             //pixel.addEventListener('click', toolFunction);
             pixel.addEventListener('mouseenter', toolFunction);
             pixel.addEventListener('click', toolFunction);

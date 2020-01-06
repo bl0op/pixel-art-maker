@@ -11,15 +11,15 @@ body {
 
 #content {
     display: table;
+    border-radius: 5%; 
+    padding: 10px;
     background-color: grey;
 }
 
 /* toolbar styling */
 #toolbar{
-    display: table;
-    border-spacing: 5px;
-    padding-bottom: 20px;
-    padding-left: 20px;
+    display: table-cell;
+    padding-right: 10px;
 }
 .toolbar-cell{
     display: table-cell;
@@ -33,8 +33,8 @@ body {
 
 /* canvas styling */
 #canvas{
-    display: table;
-    padding: 20px;
+    display: table-cell;
+    padding-right: 10px;
 }
 
 .pixel-row{
@@ -53,10 +53,8 @@ body {
 
 /* pallete styling */
 #pallete{
-    display: table;
-    border-spacing: 5px;
-    padding-bottom: 20px;
-    padding-left: 20px;
+    display: table-cell;
+    padding-top: 10px;
 }
 
 .color-row{
