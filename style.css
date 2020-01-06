@@ -53,14 +53,20 @@ body {
 
 /* pallete styling */
 #pallete{
-    display: table-cell;
-    padding-top: 10px;
+    display: table;
+    border-spacing: 5px;
+    width: 100%;
 }
 
-.color-row{
-    display: table-row;
-}
 .color-cell{
+    display: table-cell;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%; 
+    background-color: white;
+}
+
+#color-indicator{
     display: table-cell;
     height: 20px;
     width: 20px;

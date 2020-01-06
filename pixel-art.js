@@ -48,6 +48,12 @@ function eraser(event){
     modifyPixel(pixel, event.type, "", "");
 }
 
+//function to update color-indicator
+function updateIndicator(){
+    indicator = document.querySelector("#color-indicator");
+    indicator.style.backgroundColor = currentColor;
+}
+
 
 function createToolbar(){
     toolbar = document.querySelector('#toolbar');
@@ -110,17 +116,29 @@ function createPallete(){
     while(pallete.firstChild){
         pallete.removeChild(pallete.firstChild);
     }
-    color_row = document.createElement("div");
-    color_row.className = "color-row";
     var colors = ["black", "white", "red", "green", "blue", "purple", "brown", "orange" ];
     for(let color_num = 0; color_num < colors.length; color_num++){
         color_cell = document.createElement("div");        
         color_cell.style.backgroundColor = colors[color_num];
         color_cell.className = "color-cell";
-        color_cell.addEventListener("click", function(event){ currentColor = event.target.style.backgroundColor;});
-        color_row.appendChild(color_cell);
+        color_cell.addEventListener("click", function(event){ currentColor = event.target.style.backgroundColor; updateIndicator();});
+        pallete.appendChild(color_cell);
     }
-    pallete.appendChild(color_row);
+    //create color indicator
+    color_indicator = document.createElement("div");
+    color_indicator.style.display = "table-cell";
+    color_indicator.style.textAlign = "right";
+
+    color_indicator.textContent = "color indicator";
+    color_cell = document.createElement("div");
+    color_cell.id = "color-indicator";
+    color_cell.style.backgroundColor = currentColor;
+    //
+
+
+
+    pallete.appendChild(color_indicator);
+    pallete.appendChild(color_cell);
 }
 
 
