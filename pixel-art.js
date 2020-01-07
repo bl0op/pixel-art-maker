@@ -21,7 +21,7 @@ var toolFunction = function (event) {
 
 
 //current color
-var currentColor = "red";
+var currentColor = "rgb(0,0,0)";
 
 //function for modifying function
 function modifyPixel(pixel, event_type, color, border){
@@ -48,10 +48,27 @@ function eraser(event){
     modifyPixel(pixel, event.type, "", "");
 }
 
+//converting rgb to hex format
+function rgbToHex(rgb){
+    var regexp = /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/gi;
+    var matches = regexp.exec(rgb);
+    var components = [matches[1], matches[2], matches[3]];
+    var hashcode = "#" + components.map(function(numstr){ hexStr = parseInt(numstr, 10).toString(16); 
+                                                          if(hexStr.length < 2){ hexStr = "0" + hexStr;} 
+                                                          return hexStr  }).join("");
+    return hashcode;
+}
+
+
+function changeColor(color){
+    currentColor = color;
+    updateIndicator();
+}
+
 //function to update color-indicator
 function updateIndicator(){
     indicator = document.querySelector("#color-indicator");
-    indicator.style.backgroundColor = currentColor;
+    indicator.value = rgbToHex(currentColor);
 }
 
 
@@ -116,12 +133,12 @@ function createPallete(){
     while(pallete.firstChild){
         pallete.removeChild(pallete.firstChild);
     }
-    var colors = ["black", "white", "red", "green", "blue", "purple", "brown", "orange" ];
+    var colors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
     for(let color_num = 0; color_num < colors.length; color_num++){
         color_cell = document.createElement("div");        
         color_cell.style.backgroundColor = colors[color_num];
         color_cell.className = "color-cell";
-        color_cell.addEventListener("click", function(event){ currentColor = event.target.style.backgroundColor; updateIndicator();});
+        color_cell.addEventListener("click", function(event){  changeColor(event.target.style.backgroundColor);});
         pallete.appendChild(color_cell);
     }
     //create color indicator
@@ -130,9 +147,18 @@ function createPallete(){
     color_indicator.style.textAlign = "right";
 
     color_indicator.textContent = "color indicator";
-    color_cell = document.createElement("div");
+    color_cell = document.createElement("input");
+    color_cell.type = "color";
     color_cell.id = "color-indicator";
-    color_cell.style.backgroundColor = currentColor;
+    color_cell.value = currentColor;
+    color_cell.addEventListener("change", function(event){  var hexcode = event.target.value;
+                                                            var red = parseInt(hexcode[1] + hexcode[2], 16).toString(10);
+                                                            var blue = parseInt(hexcode[3] + hexcode[4], 16).toString(10);
+                                                            var green = parseInt(hexcode[5] + hexcode[6], 16).toString(10);
+                                                            var components = [red, blue, green];
+                                                            var rgbstr = "rgb(" + components.join(" ,") + ")"; 
+                                                            changeColor(rgbstr);
+                                                            });
     //
 
 
