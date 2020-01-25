@@ -12,8 +12,14 @@ document.body.onmouseleave = function(){
     mouseIsPressed = false;
 }
 
+
+window.addEventListener("load", function(event){ console.log("there"); restoreImage(); });
+
+window.addEventListener("unload", function(event){ saveToLocalStorage();});
+
+
 toolFunction = pen;
 createToolbar();
-createCanvas(64,32);
+createCanvas(32,32);
 createPallete();
 

@@ -14,8 +14,6 @@ var toolFunction = function (event) {
 
 var currentColor = "rgb(0,0,0)";
 
-//array for storing pixels color
-var pixel_colors = [];
 
 
 

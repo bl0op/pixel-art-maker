@@ -78,6 +78,16 @@ function createToolbar(){
     toolbar_row.appendChild(pen_tool);
     toolbar.appendChild(toolbar_row);
     //
+    //create pen
+    toolbar_row = document.createElement("div");
+    toolbar_row.style.display = "table-row"
+    save = document.createElement("div");
+    save.className = "toolbar-cell";
+    save.style.background= "url(img/save.png)"
+    save.addEventListener("click", function(event) {}); //to do
+    toolbar_row.appendChild(save);
+    toolbar.appendChild(toolbar_row);
+    //
 }
 
 
@@ -99,13 +109,9 @@ function createCanvas(width, height){
             pixel.addEventListener('mouseenter', toolFunction);
             pixel.addEventListener('click', toolFunction);
             row.appendChild(pixel);
-            //pixels.push(pixel);
         }
         canvas.appendChild(row);
     }
-
-    //console.log(pixel_colors);
-    
 }
 
 function createPallete(){
@@ -153,7 +159,6 @@ function createPallete(){
 function updateTool(event, func){
     
     var pixels = document.querySelector("#canvas").getElementsByClassName("pixel");
-    console.log(pixels);
     for(let pixel_num = 0; pixel_num < pixels.length; pixel_num++){
         pixels[pixel_num].removeEventListener('mouseenter', toolFunction);
         pixels[pixel_num].removeEventListener('click', toolFunction);
@@ -161,4 +166,31 @@ function updateTool(event, func){
         pixels[pixel_num].addEventListener('mouseenter', toolFunction);
         pixels[pixel_num].addEventListener('click', toolFunction);
     }
+}
+
+function setImage(pixel_colors){
+    var pixels = document.querySelector("#canvas").getElementsByClassName("pixel");
+    //console.assert(pixel_colors.length < pixels.length, "in setImage func length doesn't match");
+    var pixel_storage = []; //translate to object with size property
+    for(let pixel_num = 0; pixel_num < pixel_colors.length; pixel_num++){
+        pixels[pixel_num].style.backgroundColor = pixel_colors[pixel_num];
+        if(pixels[pixel_num].style.backgroundColor != ""){
+            pixels[pixel_num].style.border = "0px";
+        }
+    }
+}
+
+
+//saving pixels values functions
+function saveToLocalStorage(){
+    var pixels = document.querySelector("#canvas").getElementsByClassName("pixel");
+    var pixel_storage = []; //translate to object with size property
+    for(let pixel_num = 0; pixel_num < pixels.length; pixel_num++){
+        pixel_storage.push(pixels[pixel_num].style.backgroundColor);
+    }
+    localStorage.setItem("pixels", JSON.stringify(pixel_storage));
+}
+
+function restoreImage(){
+    setImage(JSON.parse(localStorage.getItem("pixels")));
 }
