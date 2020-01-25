@@ -1,27 +1,8 @@
 ///@author: ikal
-///@date: 03.12.19
-///@brief: script for pixel-art maker tool
+///@file: functions.js
+///@date: 25.01.20
+///@brief: Functions definitions
 
-
-mouseIsPressed = false
-
-document.body.onmousedown = function(){
-    mouseIsPressed = true;
-}
-document.body.onmouseup = function(){
-    mouseIsPressed = false;
-}
-document.body.onmouseleave = function(){
-    mouseIsPressed = false;
-}
-
-//this function variable is using to switch tool: pen, erase and other.
-var toolFunction = function (event) {
-}
-
-
-//current color
-var currentColor = "rgb(0,0,0)";
 
 //function for modifying function
 function modifyPixel(pixel, event_type, color, border){
@@ -99,8 +80,6 @@ function createToolbar(){
     //
 }
 
-//array for storing pixels
-var pixels = [];
 
 
 function createCanvas(width, height){
@@ -167,16 +146,7 @@ function createPallete(){
     pallete.appendChild(color_cell);
 }
 
-
-//change to pen
-//changeTool(pen);
-//changeToPen();
-
-toolFunction = pen;
-createToolbar();
-createCanvas(64,32);
-createPallete();
-
+//foreach pixel element unbinds event li2tener and bind new function
 function updateTool(event, func){
     for(let pixel_num = 0; pixel_num < pixels.length; pixel_num++){
         pixels[pixel_num].removeEventListener('mouseenter', toolFunction);
