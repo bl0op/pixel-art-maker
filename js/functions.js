@@ -99,10 +99,13 @@ function createCanvas(width, height){
             pixel.addEventListener('mouseenter', toolFunction);
             pixel.addEventListener('click', toolFunction);
             row.appendChild(pixel);
-            pixels.push(pixel);
+            //pixels.push(pixel);
         }
         canvas.appendChild(row);
     }
+
+    //console.log(pixel_colors);
+    
 }
 
 function createPallete(){
@@ -148,6 +151,9 @@ function createPallete(){
 
 //foreach pixel element unbinds event li2tener and bind new function
 function updateTool(event, func){
+    
+    var pixels = document.querySelector("#canvas").getElementsByClassName("pixel");
+    console.log(pixels);
     for(let pixel_num = 0; pixel_num < pixels.length; pixel_num++){
         pixels[pixel_num].removeEventListener('mouseenter', toolFunction);
         pixels[pixel_num].removeEventListener('click', toolFunction);
