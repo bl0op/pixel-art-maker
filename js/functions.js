@@ -30,10 +30,88 @@ function eraser(event){
     pixel = event.target;
     modifyPixel(pixel, event.type, "", "");
 }
+
 //...
 function flood_fill(event){
     //console.log("from flood_fill");
-    pixel = event.target;
+    root_pixel_node = event.target;
+
+    function get_south_node(node){
+        //get num of child
+        child = node;
+        var child_num = 0;
+        while((child = child.previousSibling) != null){
+            child_num++;
+        }
+
+        ////get south pixel
+        node_row = node.parentNode;
+        south_node_row = node_row.nextSibling;
+        if(south_node_row){
+            south_pixel = south_node_row.children[child_num];
+            return south_pixel;
+        }
+        return null;
+    }
+
+    function get_north_node(node){
+        //get num of child
+        child = node;
+        var child_num = 0;
+        while((child = child.previousSibling) != null){
+            child_num++;
+        }
+
+        ////get south pixel
+        node_row = node.parentNode;
+        north_node_row = node_row.previousSibling;
+        if(north_node_row){
+            north_node = north_node_row.children[child_num];
+            return north_node;
+        }
+        return null;
+    }
+
+    function get_west_node(node){
+        if((west_node = node.previousSibling) != null){
+            return west_node;
+        }
+        return null;
+    }
+
+    function get_east_node(node){
+        if((east_node = node.nextSibling) != null){
+            return east_node;
+        }
+        return null;
+    }
+
+
+    function fill(node, targetColor, replacementColor){
+            
+            if(targetColor == replacementColor) return;
+            else if(node.style.backgroundColor != targetColor) return;
+            else { 
+                node.style.backgroundColor = replacementColor; 
+                node.style.border = "0px"; 
+            }
+            if((south_node = get_south_node(node)) != null){
+                fill(south_node, targetColor, replacementColor);
+            }
+            if((north_node = get_north_node(node)) != null){
+                fill(north_node, targetColor, replacementColor);
+            }
+            if((west_node = get_west_node(node)) != null){
+                fill(west_node, targetColor, replacementColor);
+            }
+            if((east_node = get_east_node(node)) != null){
+                fill(east_node, targetColor, replacementColor);
+            }
+            return;
+    }
+
+    fill(root_pixel_node, root_pixel_node.style.backgroundColor, currentColor);
+    
 }
 
 //converting rgb to hex format
@@ -180,9 +258,10 @@ function updateTool(event, func){
         pixel_clone = pixels[pixel_num].cloneNode(true);
         pixels[pixel_num].parentNode.replaceChild(pixel_clone, pixels[pixel_num]);
         
-        //add new listeners
+        //add new listener
         toolFunction = func;
-        pixels[pixel_num].addEventListener('mouseenter', toolFunction);
+        if(toolFunction != flood_fill)
+            pixels[pixel_num].addEventListener('mouseenter', toolFunction);
         pixels[pixel_num].addEventListener('click', toolFunction);
     }
 }
