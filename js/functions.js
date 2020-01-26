@@ -32,6 +32,15 @@ function eraser(event){
 }
 
 //...
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+//...
 function flood_fill(event){
     //console.log("from flood_fill");
     root_pixel_node = event.target;
@@ -91,7 +100,8 @@ function flood_fill(event){
             
             if(targetColor == replacementColor) return;
             else if(node.style.backgroundColor != targetColor) return;
-            else { 
+            else {   
+                sleep(1000);
                 node.style.backgroundColor = replacementColor; 
                 node.style.border = "0px"; 
             }
