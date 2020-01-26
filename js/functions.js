@@ -20,13 +20,20 @@ function modifyPixel(pixel, event_type, color, border){
 
 //pen tool (Captain obvious: color selected pixel)
 function pen(event){
+    //console.log("from pen");
     pixel = event.target;
     modifyPixel(pixel, event.type, currentColor, "0px");
 }
 //...
 function eraser(event){
+    //console.log("from eraser");
     pixel = event.target;
     modifyPixel(pixel, event.type, "", "");
+}
+//...
+function flood_fill(event){
+    //console.log("from flood_fill");
+    pixel = event.target;
 }
 
 //converting rgb to hex format
@@ -59,15 +66,6 @@ function createToolbar(){
     while(toolbar.firstChild){
         toolbar.removeChild(toolbar.firstChild);
     }
-    toolbar_row = document.createElement("div");
-    toolbar_row.style.display = "table-row"
-    //create eraser
-    pen_tool = document.createElement("div");
-    pen_tool.className = "toolbar-cell";
-    pen_tool.style.background= "url(img/eraser.png)"
-    pen_tool.addEventListener("click", function(event) { updateTool(event, eraser); });
-    toolbar_row.appendChild(pen_tool);
-    toolbar.appendChild(toolbar_row);
     //create pen
     toolbar_row = document.createElement("div");
     toolbar_row.style.display = "table-row"
@@ -77,8 +75,26 @@ function createToolbar(){
     pen_tool.addEventListener("click", function(event) { updateTool(event, pen); });
     toolbar_row.appendChild(pen_tool);
     toolbar.appendChild(toolbar_row);
+    //create eraser
+    toolbar_row = document.createElement("div");
+    toolbar_row.style.display = "table-row"
+    eraser_tool = document.createElement("div");
+    eraser_tool.className = "toolbar-cell";
+    eraser_tool.style.background= "url(img/eraser.png)"
+    eraser_tool.addEventListener("click", function(event) { updateTool(event, eraser); });
+    toolbar_row.appendChild(eraser_tool);
+    toolbar.appendChild(toolbar_row);
+    //create flood filler
+    toolbar_row = document.createElement("div");
+    toolbar_row.style.display = "table-row"
+    filler = document.createElement("div");
+    filler.className = "toolbar-cell";
+    filler.style.background= "url(img/flood_fill.png)"
+    filler.addEventListener("click", function(event) { updateTool(event, flood_fill); }); //to do
+    toolbar_row.appendChild(filler);
+    toolbar.appendChild(toolbar_row);
     //
-    //create pen
+    //create save
     toolbar_row = document.createElement("div");
     toolbar_row.style.display = "table-row"
     save = document.createElement("div");
@@ -155,13 +171,16 @@ function createPallete(){
     pallete.appendChild(color_cell);
 }
 
-//foreach pixel element unbinds event li2tener and bind new function
+//foreach pixel element unbinds event listener and bind new function
 function updateTool(event, func){
-    
+    //console.log(toolFunction);
     var pixels = document.querySelector("#canvas").getElementsByClassName("pixel");
     for(let pixel_num = 0; pixel_num < pixels.length; pixel_num++){
-        pixels[pixel_num].removeEventListener('mouseenter', toolFunction);
-        pixels[pixel_num].removeEventListener('click', toolFunction);
+        //removing listeners
+        pixel_clone = pixels[pixel_num].cloneNode(true);
+        pixels[pixel_num].parentNode.replaceChild(pixel_clone, pixels[pixel_num]);
+        
+        //add new listeners
         toolFunction = func;
         pixels[pixel_num].addEventListener('mouseenter', toolFunction);
         pixels[pixel_num].addEventListener('click', toolFunction);
